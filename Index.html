@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checklist Digital - Equipos Eléctricos</title>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#0d47a1">
+  <style>
+    /* Estilo general */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body { 
+      font-family: 'Roboto', sans-serif; 
+      background: #f3f4f6; 
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 10px;
+    }
+    .container {
+      width: 100%;
+      max-width: 400px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    header img {
+      width: 80px;
+      margin-bottom: 10px;
+    }
+    header h1 {
+      font-size: 18px;
+      color: #0d47a1;
+      margin: 0;
+    }
+    label {
+      display: block;
+      margin: 8px 0 5px;
+      font-weight: bold;
+      color: #0d47a1;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    button {
+      background: #0d47a1;
+      color: white;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #1565c0;
+    }
+    canvas {
+      border: 1px solid #ccc;
+      margin-bottom: 15px;
+      width: 100%;
+    }
+    .alert {
+  display: none;
+  background-color: #fff3cd; /* Fondo amarillo claro */
+  color: #856404; /* Texto marrón oscuro */
+  border: 1px solid #ffeeba; /* Borde amarillo */
+  border-radius: 6px; /* Bordes redondeados */
+  padding: 10px 15px; /* Espaciado interno */
+  font-size: 14px; /* Tamaño del texto */
+  margin-bottom: 15px; /* Separación inferior */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra */
+}
+
+    small {
+  display: block;
+  font-size: 12px; /* Tamaño más pequeño */
+  color: #777; /* Gris claro */
+  margin-bottom: 5px;
+}
+
+
+    /* Ajustes responsivos */
+    @media (max-width: 600px) {
+      body {
+        padding: 10px;
+      }
+      header img {
+        width: 60px;
+      }
+      header h1 {
+        font-size: 16px;
+      }
+      .container {
+        padding: 15px;
+      }
+      input, select, button {
+        font-size: 14px;
+        padding: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <img src="https://i.ibb.co/Ws15CwB/Logo-TASA.jpg" alt="Logo TASA">
+      <h1>Checklist Digital</h1>
+    </header>
+
+    <!-- Fecha -->
+    <label for="currentDate">Fecha:</label>
+    <input type="text" id="currentDate" readonly>
+
+    <form id="checklistForm">
+      <!-- Nombre y Apellido -->
+      <label for="firstName">Nombre:</label>
+      <input type="text" id="firstName" placeholder="Ingrese su nombre" required>
+      <label for="lastName">Apellido:</label>
+      <input type="text" id="lastName" placeholder="Ingrese su apellido" required>
+
+      <!-- Turno Actual -->
+      <label for="shift">Turno actual:</label>
+      <select id="shift" required>
+        <option value="">Seleccionar turno</option>
+        <option value="TM">TM (06:00-14:00)</option>
+        <option value="TT">TT (14:00-22:00)</option>
+        <option value="TN">TN (22:00-06:00)</option>
+        <option value="HORAS_EXTRAS_02">HORAS EXTRAS (Hasta las 02:00)</option>
+        <option value="HORAS_EXTRAS_18">HORAS EXTRAS (Hasta las 18:00)</option>
+        <option value="HORAS_EXTRAS_10">HORAS EXTRAS (Hasta las 10:00)</option>
+        <option value="HORARIO_CENTRAL">Horario Central (09:00-18:00)</option>
+      </select>
+
+      <!-- Número interno -->
+      <label for="internalNumber">Número interno del equipo:</label>
+      <input type="number" id="internalNumber" placeholder="Ingrese el número interno" required>
+
+<!-- Preguntas -->
+<label for="forks">Estado de Horquillas/Uñas:</label>
+<small>Coloque "OK" si NO se observa desgate excesivo, deformaciones ni fisuras.</small>
+<select id="forks" class="critical" required>
+  <option value="ok" selected>OK</option>
+  <option value="no">NO OK</option>
+</select>
+
+<label for="leaks">Libre de pérdidas o fugas:</label>
+<small>Coloque "OK" si NO se observan fugas de fluídos en el circuito hidráulico, mangueras ni conexiones.</small>
+<select id="leaks" class="critical" required>
+  <option value="ok" selected>OK</option>
+  <option value="no">NO OK</option>
+</select>
+
+<label for="sensor">Sensor de Hombre a bordo:</label>
+<small>Buen estado general - su accionamiento habilita la máquina.</small>
+<select id="sensor" class="critical" required>
+  <option value="ok" selected>OK</option>
+  <option value="no">NO OK</option>
+</select>
+
+<label for="pedestal">Pedestal/Habitáculo:</label>
+<small>Posee almohadilla antivibración - Posee antideslizante en superficie de apoyo.</small>
+<select id="pedestal" required>
+  <option value="ok" selected>OK</option>
+  <option value="no">NO OK</option>
+</select>
+
+<label for="horn">Bocina:</label>
+<small>Accionamiento correcto y sonido audible.</small>
+<select id="horn" class="critical" required>
+  <option value="ok" selected>OK</option>
+  <option value="no">NO OK</option>
+</select>
+
+<label for="elevation">Botones de accionamiento de sistema de elevación:</label>
+<small>Funcionamiento previsible sin fallas.</small>
+<select id="elevation" class="critical" required>
+  <option value="ok" selected>OK</option>
+  <option value="no">NO OK</option>
+</select>
+
+<label for="accelerator">Acelerador:</label>
+<small>Correcto funcionamiento y parejo.</small>
+<select id="accelerator" class="critical" required>
+  <option value="ok" selected>OK</option>
+  <option value="no">NO OK</option>
+</select>
+
+<label for="steering">Timón/Volante:</label>
+<small>Buen estado - Maniobrabilidad completa.</small>
+<select id="steering" class="critical" required>
+  <option value="ok" selected>OK</option>
+  <option value="no">NO OK</option>
+</select>
+
+<label for="battery">Batería - Estado y nivel de carga:</label>
+<small>Buen estado general - cables/aislantes, fichas y bornes en buen estado.</small>
+<select id="battery" required>
+  <option value="ok" selected>OK</option>
+  <option value="no">NO OK</option>
+</select>
+
+<label for="damage">Golpes y abollones:</label>
+<small>Seleccione según corresponda.</small>
+<select id="damage" required>
+  <option value="ok" selected>OK</option>
+  <option value="minor_damage">TIENE GOLPES Y ABOLLONES PERO NO IMPIDEN SU FUNCIONAMIENTO</option>
+  <option value="major_damage">TIENE GOLPES Y ABOLLONES QUE IMPIDEN SU FUNCIONAMIENTO</option>
+</select>
+
+
+
+      <!-- Firma -->
+      <label for="signature">Firma:</label>
+      <canvas id="signature"></canvas>
+      <button type="button" id="clearSignature">Borrar Firma</button>
+
+      <!-- Mensaje de Alerta -->
+      <div id="alertMessage" class="alert">
+        ⚠️ <strong>ATENCIÓN:</strong> El equipo no debe ser utilizado. Informe al supervisor de inmediato.
+      </div>
+      
+
+      <!-- Enviar -->
+      <button type="submit">Enviar Checklist</button>
+    </form>
+  </div>
+
+  <script>
+    // Configurar la fecha automáticamente
+    const currentDate = new Date().toISOString().split("T")[0];
+    document.getElementById('currentDate').value = currentDate;
+
+    // Capturar selección de "NO OK" en preguntas críticas
+    document.querySelectorAll('.critical').forEach(select => {
+      select.addEventListener('change', () => {
+        const alertMessage = document.getElementById('alertMessage');
+        if (select.value === 'no') {
+          alertMessage.style.display = 'block';
+        } else {
+          const anyCriticalNoOk = Array.from(document.querySelectorAll('.critical')).some(el => el.value === 'no');
+          alertMessage.style.display = anyCriticalNoOk ? 'block' : 'none';
+        }
+      });
+    });
+
+    // Lógica para capturar la firma
+    const canvas = document.getElementById('signature');
+    const ctx = canvas.getContext('2d');
+    let isDrawing = false;
+
+    canvas.addEventListener('mousedown', () => isDrawing = true);
+    canvas.addEventListener('mouseup', () => isDrawing = false);
+    canvas.addEventListener('mousemove', (e) => {
+      if (!isDrawing) return;
+      ctx.lineWidth = 2;
+      ctx.lineCap = 'round';
+      ctx.strokeStyle = 'black';
+      ctx.lineTo(e.offsetX, e.offsetY);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(e.offsetX, e.offsetY);
+    });
+
+    document.getElementById('clearSignature').addEventListener('click', () => ctx.clearRect(0, 0, canvas.width, canvas.height));
+
+    // Enviar formulario
+    document.getElementById('checklistForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert("Checklist enviado con éxito.");
+    });
+  </script>
+</body>
+</html>
+
