@@ -76,12 +76,12 @@
     }
     .alert {
   display: none;
-  background-color: #fff3cd; /* Fondo amarillo claro */
-  color: #856404; /* Texto marrón oscuro */
+  background-color: #d80505; /* Fondo amarillo claro */
+  color: #ffffff; /* Texto marrón oscuro */
   border: 1px solid #ffeeba; /* Borde amarillo */
   border-radius: 6px; /* Bordes redondeados */
   padding: 10px 15px; /* Espaciado interno */
-  font-size: 14px; /* Tamaño del texto */
+  font-size: 20px; /* Tamaño del texto */
   margin-bottom: 15px; /* Separación inferior */
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra */
 }
@@ -143,7 +143,11 @@
         <option value="HORAS_EXTRAS_02">HORAS EXTRAS (Hasta las 02:00)</option>
         <option value="HORAS_EXTRAS_18">HORAS EXTRAS (Hasta las 18:00)</option>
         <option value="HORAS_EXTRAS_10">HORAS EXTRAS (Hasta las 10:00)</option>
+        <option value="HORAS_EXTRAS_02">HORAS EXTRAS (Ingreso las 02:00)</option>
+        <option value="HORAS_EXTRAS_18">HORAS EXTRAS (Ingreso las 18:00)</option>
+        <option value="HORAS_EXTRAS_10">HORAS EXTRAS (Ingreso las 10:00)</option>
         <option value="HORARIO_CENTRAL">Horario Central (09:00-18:00)</option>
+
       </select>
 
       <!-- Número interno -->
@@ -216,10 +220,10 @@
 
 <label for="damage">Golpes y abollones:</label>
 <small>Seleccione según corresponda.</small>
-<select id="damage" required>
+<select id="damage" class="critical" required>
   <option value="ok" selected>OK</option>
   <option value="minor_damage">TIENE GOLPES Y ABOLLONES PERO NO IMPIDEN SU FUNCIONAMIENTO</option>
-  <option value="major_damage">TIENE GOLPES Y ABOLLONES QUE IMPIDEN SU FUNCIONAMIENTO</option>
+  <option value="no">TIENE GOLPES Y ABOLLONES QUE IMPIDEN SU FUNCIONAMIENTO</option>
 </select>
 
 
@@ -286,4 +290,6 @@
   </script>
 </body>
 </html>
+
+
 
