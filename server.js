@@ -18,12 +18,12 @@ app.post('/submit-checklist', (req, res) => {
 
   // Configurar Nodemailer
   const transporter = nodemailer.createTransport({
-    service: 'gmail', // Cambia esto según tu proveedor
-    auth: {
-      user: process.env.EMAIL_USER, // Usa la variable de entorno configurada en Render
-      pass: process.env.EMAIL_PASS, // Usa la variable de entorno configurada en Render
-    },
-  });
+  service: 'gmail',
+  auth: {
+    user: 'backyardchecklist@gmail.com', // Reemplaza con tu correo
+    pass: 'bajg sujt djsj yljc',         // Reemplaza con tu contraseña generada
+  },
+});
 
   const mailOptions = {
     from: process.env.EMAIL_USER,
