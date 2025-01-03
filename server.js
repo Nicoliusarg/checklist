@@ -25,7 +25,7 @@ app.post('/submit-checklist', (req, res) => {
 
   const mailOptions = {
     from: process.env.EMAIL_USER,
-    to: check1 === 'ok' ? 'correo_ok@gmail.com' : 'correo_no_ok@gmail.com',
+    to: check1 === 'ok' ? 'nruiz@tasalogistica.com.ar' : 'abuzetti@tasalogistica.com.ar',
     subject: `Checklist del equipo: ${equipment}`,
     text: `Revisión de equipo:\nEquipo: ${equipment}\nEstado: ${check1}`,
     attachments: [
