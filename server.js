@@ -2,11 +2,13 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
 const app = express();
+const cors = require('cors');
 
 // Render proporciona el puerto en la variable de entorno PORT
 const PORT = process.env.PORT || 3000;
 
 // Middleware
+app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
