@@ -2,7 +2,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
 const app = express();
-const PORT = 3000;
+
+// Render proporciona el puerto en la variable de entorno PORT
+const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(bodyParser.json());
@@ -16,13 +18,13 @@ app.post('/submit-checklist', (req, res) => {
   const transporter = nodemailer.createTransport({
     service: 'gmail', // Cambia esto según tu proveedor
     auth: {
-      user: 'tu_correo@gmail.com', // Tu correo
-      pass: 'tu_contraseña',       // Tu contraseña
+      user: process.env.EMAIL_USER, // Usa la variable de entorno configurada en Render
+      pass: process.env.EMAIL_PASS, // Usa la variable de entorno configurada en Render
     },
   });
 
   const mailOptions = {
-    from: 'tu_correo@gmail.com',
+    from: process.env.EMAIL_USER,
     to: check1 === 'ok' ? 'correo_ok@gmail.com' : 'correo_no_ok@gmail.com',
     subject: `Checklist del equipo: ${equipment}`,
     text: `Revisión de equipo:\nEquipo: ${equipment}\nEstado: ${check1}`,
@@ -46,4 +48,4 @@ app.post('/submit-checklist', (req, res) => {
 });
 
 // Iniciar el servidor
-app.listen(PORT, () => console.log(`Servidor corriendo en http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`Servidor corriendo en el puerto ${PORT}`));
