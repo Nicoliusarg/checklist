@@ -282,11 +282,50 @@
 
     document.getElementById('clearSignature').addEventListener('click', () => ctx.clearRect(0, 0, canvas.width, canvas.height));
 
-    // Enviar formulario
-    document.getElementById('checklistForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      alert("Checklist enviado con éxito.");
+   document.getElementById('checklistForm').addEventListener('submit', async (e) => {
+  e.preventDefault(); // Evita que el formulario recargue la página
+
+  // Recopila todos los datos del formulario
+  const data = {
+    firstName: document.getElementById('firstName').value, // Nombre
+    lastName: document.getElementById('lastName').value, // Apellido
+    shift: document.getElementById('shift').value, // Turno actual
+    equipment: document.getElementById('internalNumber').value, // Número interno del equipo
+    forks: document.getElementById('forks').value, // Estado de horquillas
+    leaks: document.getElementById('leaks').value, // Libre de pérdidas o fugas
+    sensor: document.getElementById('sensor').value, // Sensor de hombre a bordo
+    pedestal: document.getElementById('pedestal').value, // Pedestal/Habitáculo
+    horn: document.getElementById('horn').value, // Bocina
+    elevation: document.getElementById('elevation').value, // Botones de elevación
+    accelerator: document.getElementById('accelerator').value, // Acelerador
+    steering: document.getElementById('steering').value, // Timón/Volante
+    battery: document.getElementById('battery').value, // Batería
+    damage: document.getElementById('damage').value, // Golpes y abollones
+    signature: document.getElementById('signature').toDataURL(), // Firma en formato base64
+  };
+
+  try {
+    // Envía los datos al backend
+    const response = await fetch('https://checklist-2phm.onrender.com/submit-checklist', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json', // Indica que estás enviando datos en formato JSON
+      },
+      body: JSON.stringify(data), // Convierte los datos a JSON para el backend
     });
+
+    if (response.ok) {
+      const result = await response.json();
+      alert(result.message); // Muestra el mensaje de éxito
+    } else {
+      throw new Error('Error al enviar el formulario al servidor.');
+    }
+  } catch (error) {
+    console.error(error);
+    alert('Ocurrió un error al enviar el formulario. Por favor, inténtalo nuevamente.');
+  }
+});
+
   </script>
 </body>
 </html>
